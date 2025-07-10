@@ -36,27 +36,33 @@ export const validReferralCodes = ["ktf942"];
 
 export const comboPacks = [
   {
-    title: ['500 followers', '1k likes', '5k views'],
-    prices: [99, 29, 39],
-    total: 177,
+    title: ['500 subscribers', '1k likes', '5k views'],
+    prices: [99, 29, 55],
+    total: 183,
     actualPrice: 149,
   },
   {
-    title: ['1.5k followers', '3k likes', '15k views'],
-    prices: [199, 89, 49],
-    total: 337,
+    title: ['1.5k subscribers', '3k likes', '15k views'],
+    prices: [199, 89, 69],
+    total: 357,
     actualPrice: 299,
   },
   {
-    title: ['5k followers', '10k likes', '50k views'],
-    prices: [599, 99, 79],
-    total: 777,
+    title: ['5k subscribers', '10k likes', '50k views'],
+    prices: [599, 99, 111],
+    total: 809,
     actualPrice: 699,
   },
   {
-    title: ['15k followers', '30k likes', '150k views'],
-    prices: [1599, 149, 149],
-    total: 1897,
+    title: ['15k subscribers', '30k likes', '150k views'],
+    prices: [1599, 149, 209],
+    total: 1957,
+    actualPrice: 1799,
+  },
+  {
+    title: ['15k subscribers', '30k likes', '150k views'],
+    prices: [1599, 149, 209],
+    total: 1957,
     actualPrice: 1799,
   },
 ];
