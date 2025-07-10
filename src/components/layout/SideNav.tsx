@@ -93,7 +93,7 @@ export const SideNav = ({ items }: SideNavProps) => {
         {/* Contact Button */}
         <div className="p-4 border-t border-gray-700 bg-gray-900">
           <a
-            href="https://wa.me/919403080787"
+            href="https://wa.me/7017396029"
             target="_blank"
             rel="noopener noreferrer"
             className="block"

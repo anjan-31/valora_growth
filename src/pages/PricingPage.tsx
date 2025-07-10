@@ -63,7 +63,7 @@ const ContactModal = ({
   const [showTelegramConfirm, setShowTelegramConfirm] = useState(false);
 
   const openWhatsApp = () => {
-    const whatsappUrl = `https://wa.me/919403080787?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/7017396029?text=${encodedMessage}`;
     window.open(whatsappUrl, "_blank");
     onClose();
   };

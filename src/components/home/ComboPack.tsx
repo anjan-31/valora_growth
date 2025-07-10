@@ -153,7 +153,7 @@ Discounted Price: ₹${selectedPack.actualPrice}
 `.trim();
 
   const encodedMessage = encodeURIComponent(message);
-  const whatsappNumber = "919403080787";
+  const whatsappNumber = "7017396029"";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
   const handleWhatsApp = () => {
