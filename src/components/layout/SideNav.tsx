@@ -47,7 +47,7 @@ export const SideNav = ({ items }: SideNavProps) => {
         {/* Logo */}
         <div className="p-6 border-b border-gray-800 flex items-center gap-3">
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.jpg" alt="Valora.Growth Logo" className="h-10 w-10 rounded-full object-cover" />
+            <img src="/logo.png" alt="Valora.Growth Logo" className="h-10 w-10 rounded-full object-cover" />
             <span className="text-white text-2xl font-bold select-none">
               Valora.Growth
             </span>
