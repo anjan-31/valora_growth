@@ -1,0 +1,403 @@
+import React, { useState } from 'react';
+import { Card } from '../components/ui/Card';
+import { Button } from '../components/ui/Button';
+import { Badge } from '../components/ui/Badge';
+
+interface Service {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  min: number;
+  max: number;
+  description: string;
+  status: 'active' | 'inactive';
+}
+
+interface Order {
+  id: string;
+  service: string;
+  link: string;
+  quantity: number;
+  price: number;
+  status: 'pending' | 'processing' | 'completed' | 'cancelled';
+  created_at: string;
+}
+
+const SMMPanel: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [balance, setBalance] = useState(1000);
+  const [orders, setOrders] = useState<Order[]>([
+    {
+      id: 'ORD001',
+      service: 'Instagram Likes - 1K',
+      link: 'https://instagram.com/p/123',
+      quantity: 1000,
+      price: 28,
+      status: 'completed',
+      created_at: '2024-01-15'
+    },
+    {
+      id: 'ORD002',
+      service: 'Instagram Likes - 2K',
+      link: 'https://instagram.com/p/456',
+      quantity: 2000,
+      price: 56,
+      status: 'processing',
+      created_at: '2024-01-16'
+    }
+  ]);
+
+  const services: Service[] = [
+    {
+      id: 'insta_likes_1k',
+      name: 'Instagram Likes - 1K',
+      category: 'Instagram',
+      price: 28,
+      min: 1000,
+      max: 1000,
+      description: '1,000 High-quality Instagram likes',
+      status: 'active'
+    },
+    {
+      id: 'insta_likes_2k',
+      name: 'Instagram Likes - 2K',
+      category: 'Instagram',
+      price: 56,
+      min: 2000,
+      max: 2000,
+      description: '2,000 High-quality Instagram likes',
+      status: 'active'
+    },
+    {
+      id: 'insta_likes_3k',
+      name: 'Instagram Likes - 3K',
+      category: 'Instagram',
+      price: 84,
+      min: 3000,
+      max: 3000,
+      description: '3,000 High-quality Instagram likes',
+      status: 'active'
+    },
+    {
+      id: 'insta_likes_4k',
+      name: 'Instagram Likes - 4K',
+      category: 'Instagram',
+      price: 112,
+      min: 4000,
+      max: 4000,
+      description: '4,000 High-quality Instagram likes',
+      status: 'active'
+    }
+  ];
+
+  const tabs = [
+    { id: 'dashboard', name: 'Dashboard', icon: '📊' },
+    { id: 'services', name: 'Instagram Likes', icon: '❤️' },
+    { id: 'new-order', name: 'New Order', icon: '➕' },
+    { id: 'orders', name: 'Order History', icon: '📋' },
+    { id: 'api', name: 'API Docs', icon: '🔧' }
+  ];
+
+  const renderDashboard = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-600 text-sm">Balance</p>
+              <p className="text-2xl font-bold text-green-600">₹{balance}</p>
+            </div>
+            <div className="text-3xl">💰</div>
+          </div>
+        </Card>
+        
+        <Card className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-600 text-sm">Total Orders</p>
+              <p className="text-2xl font-bold text-blue-600">{orders.length}</p>
+            </div>
+            <div className="text-3xl">📦</div>
+          </div>
+        </Card>
+        
+        <Card className="p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-600 text-sm">Completed</p>
+              <p className="text-2xl font-bold text-green-600">
+                {orders.filter(o => o.status === 'completed').length}
+              </p>
+            </div>
+            <div className="text-3xl">✅</div>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="p-6">
+        <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
+        <div className="space-y-3">
+          {orders.slice(0, 5).map((order) => (
+            <div key={order.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div>
+                <p className="font-medium">{order.service}</p>
+                <p className="text-sm text-gray-600">{order.link}</p>
+              </div>
+              <div className="text-right">
+                <p className="font-medium">₹{order.price}</p>
+                <Badge 
+                  variant={order.status === 'completed' ? 'success' : 
+                          order.status === 'processing' ? 'warning' : 'default'}
+                >
+                  {order.status}
+                </Badge>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+
+  const renderServices = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Instagram Likes Services</h2>
+        <Badge variant="success">All Services Active</Badge>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map((service) => (
+          <Card key={service.id} className="p-6 hover:shadow-lg transition-shadow border-2 border-gray-200">
+            <div className="text-center">
+              <div className="text-4xl mb-4">❤️</div>
+              <h3 className="text-xl font-bold mb-2">{service.name}</h3>
+              <p className="text-gray-600 mb-4">{service.description}</p>
+              
+              <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white p-4 rounded-lg mb-4">
+                <p className="text-2xl font-bold">₹{service.price}</p>
+                <p className="text-sm opacity-90">One Time Payment</p>
+              </div>
+              
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Quantity:</span>
+                  <span className="font-semibold">{service.min.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Delivery:</span>
+                  <span className="font-semibold text-green-600">1-2 Hours</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Quality:</span>
+                  <span className="font-semibold text-blue-600">Premium</span>
+                </div>
+              </div>
+              
+              <Button 
+                className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white border-0"
+                onClick={() => setActiveTab('new-order')}
+              >
+                Order Now
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+      
+      <Card className="p-6 bg-gradient-to-r from-pink-50 to-red-50 border-2 border-pink-200">
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-gray-800 mb-2">Why Choose Our Instagram Likes?</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div className="flex items-center justify-center space-x-2">
+              <span className="text-2xl">⚡</span>
+              <span className="text-sm font-medium">Fast Delivery</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2">
+              <span className="text-2xl">🔒</span>
+              <span className="text-sm font-medium">Safe & Secure</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2">
+              <span className="text-2xl">💎</span>
+              <span className="text-sm font-medium">Premium Quality</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+
+  const renderNewOrder = () => (
+    <div className="max-w-2xl mx-auto space-y-6">
+      <h2 className="text-2xl font-bold text-center">Order Instagram Likes</h2>
+      
+      <Card className="p-6">
+        <form className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Select Package</label>
+            <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500">
+              {services.map((service) => (
+                <option key={service.id} value={service.id}>
+                  {service.name} - ₹{service.price}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2">Instagram Post URL</label>
+            <input 
+              type="url" 
+              placeholder="https://instagram.com/p/..."
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+            />
+            <p className="text-xs text-gray-500 mt-1">Enter the URL of your Instagram post</p>
+          </div>
+          
+          <div className="bg-gradient-to-r from-pink-50 to-red-50 p-4 rounded-lg border-2 border-pink-200">
+            <div className="flex justify-between items-center">
+              <span className="font-medium">Total Cost:</span>
+              <span className="text-xl font-bold text-pink-600">₹28.00</span>
+            </div>
+            <p className="text-xs text-gray-600 mt-1">Price includes all taxes</p>
+          </div>
+          
+          <Button 
+            type="submit" 
+            className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white border-0"
+          >
+            Place Order Now
+          </Button>
+        </form>
+      </Card>
+    </div>
+  );
+
+  const renderOrders = () => (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">Order History</h2>
+      
+      <Card className="p-6">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left p-3">Order ID</th>
+                <th className="text-left p-3">Service</th>
+                <th className="text-left p-3">Link</th>
+                <th className="text-left p-3">Quantity</th>
+                <th className="text-left p-3">Price</th>
+                <th className="text-left p-3">Status</th>
+                <th className="text-left p-3">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order.id} className="border-b hover:bg-gray-50">
+                  <td className="p-3 font-medium">{order.id}</td>
+                  <td className="p-3">{order.service}</td>
+                  <td className="p-3 text-sm text-gray-600 truncate max-w-xs">
+                    {order.link}
+                  </td>
+                  <td className="p-3">{order.quantity.toLocaleString()}</td>
+                  <td className="p-3">₹{order.price}</td>
+                  <td className="p-3">
+                    <Badge 
+                      variant={order.status === 'completed' ? 'success' : 
+                              order.status === 'processing' ? 'warning' : 'default'}
+                    >
+                      {order.status}
+                    </Badge>
+                  </td>
+                  <td className="p-3 text-sm">{order.created_at}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+
+  const renderAPI = () => (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold">API Documentation</h2>
+      
+      <Card className="p-6">
+        <h3 className="text-lg font-semibold mb-4">Authentication</h3>
+        <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+          <p>API Key: x-api-key: YOUR_API_KEY</p>
+          <p>Base URL: https://api.anjangrowth.com/v1</p>
+        </div>
+      </Card>
+      
+      <Card className="p-6">
+        <h3 className="text-lg font-semibold mb-4">Create Instagram Likes Order</h3>
+        <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+          <p>POST /orders</p>
+          <p>{'{'}</p>
+          <p>  "service": "insta_likes_1k",</p>
+          <p>  "link": "https://instagram.com/p/...",</p>
+          <p>  "quantity": 1000</p>
+          <p>{'}'}</p>
+        </div>
+      </Card>
+      
+      <Card className="p-6">
+        <h3 className="text-lg font-semibold mb-4">Available Services</h3>
+        <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+          <p>insta_likes_1k - 1,000 likes - ₹28</p>
+          <p>insta_likes_2k - 2,000 likes - ₹56</p>
+          <p>insta_likes_3k - 3,000 likes - ₹84</p>
+          <p>insta_likes_4k - 4,000 likes - ₹112</p>
+        </div>
+      </Card>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-gradient-to-r from-pink-500 to-red-500 shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <h1 className="text-2xl font-bold text-white">Instagram Likes SMM Panel</h1>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-white">Balance: ₹{balance}</span>
+              <Button variant="outline" className="bg-white text-pink-600 hover:bg-gray-100">
+                Add Funds
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm mb-8">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-gradient-to-r from-pink-500 to-red-500 text-white'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+              }`}
+            >
+              <span className="mr-2">{tab.icon}</span>
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {activeTab === 'dashboard' && renderDashboard()}
+        {activeTab === 'services' && renderServices()}
+        {activeTab === 'new-order' && renderNewOrder()}
+        {activeTab === 'orders' && renderOrders()}
+        {activeTab === 'api' && renderAPI()}
+      </div>
+    </div>
+  );
+};
+
+export default SMMPanel;

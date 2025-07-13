@@ -10,7 +10,7 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-10">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-white">
-            Grow Your Instagram  with Anjan Kumar
+            Grow Your Instagram  with Anjan Growth
             <span className="block mt-2 text-gray-300 font-semibold">
               Fast & Organic 🚀
             </span>

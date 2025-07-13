@@ -1,13 +1,18 @@
 import React from 'react';
 import { SideNav } from './SideNav';
 import { NavItem } from '../../types';
-import { Home, DollarSign, Mail, ShoppingBag, Info } from 'lucide-react';
+import { Home, DollarSign, Mail, ShoppingBag, Info, Settings } from 'lucide-react';
 
 const navItems: NavItem[] = [
   {
     title: 'Home',
     href: '/',
     icon: Home,
+  },
+  {
+    title: 'SMM Panel',
+    href: '/smm-panel',
+    icon: Settings,
   },
 
   // {
